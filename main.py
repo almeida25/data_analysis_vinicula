@@ -4,6 +4,8 @@ import numpy             as np
 import seaborn           as sns
 import matplotlib.pyplot as plt
 import altair            as alt
+import plotly.express    as px
+import plotly.graph_objs as go
 from st_aggrid        import AgGrid, GridOptionsBuilder
 
 PRIMARY_COLOR = "#572b52"
@@ -109,7 +111,8 @@ df_exp_vinho.drop(columns=['Id'], inplace=True)
 df_exp_vinho.set_index("País", inplace=True)
 
 colunas = df_exp_vinho.columns[-30:]
-colunas = colunas.insert(0, df_exp_vinho.columns[0])
+#colunas = colunas.insert(0, df_exp_vinho.columns[0])
+df_exp_vinho = df_exp_vinho[colunas]
 
 new_columns_name = []
 for col in df_exp_vinho.columns:
@@ -122,7 +125,7 @@ for col in df_exp_vinho.columns:
     elif not str(col).endswith(".1") and not str(col) == "País":
         new_columns_name.append(str(col).replace(".1", " US$"))
 
-df_exp_vinho = df_exp_vinho[colunas]
+df_exp_vinho.columns = new_columns_name
 
 for idx, row in df_exp_vinho.iterrows():
     df_exp_vinho.loc[df_exp_vinho.index == idx, "Total em Litros"] = row[0::2].sum()
@@ -147,26 +150,71 @@ df_exp_vinho_litros_resumida['Total em US$'] = df_exp_vinho_litros_resumida['Tot
 
 with st.expander("📊 Informações de Exportação Geral"):
     
-    st.subheader("Tabela Resumida com Informações de Exportações nos Últimos Anos")
+    st.subheader("Tabela Resumida com Informações de Exportações nos Últimos 15 Anos")
     df_exp_vinho_litros_resumida1 = df_exp_vinho_litros_resumida.reset_index()
     builder = GridOptionsBuilder.from_dataframe(df_exp_vinho_litros_resumida1)
     builder.configure_pagination(paginationAutoPageSize=False, paginationPageSize=7)
-    go                        = builder.build()
-    AgGrid(df_exp_vinho_litros_resumida1, gridOptions=go)
+    gol                        = builder.build()
+    AgGrid(df_exp_vinho_litros_resumida1, gridOptions=gol)
 
+    
+with st.expander(" Maiores Exportadores de Vinho"):
+    #px.line()
+    st.subheader("Linha do Tempo dos Países que mais geraram Lucro ao Brasil nos Últimos 15 Anos")
+    df_exp_vinho_maiores_lucros = df_exp_vinho_litros.sort_values(by='Total em US$', ascending=False)
+    cols = df_exp_vinho_maiores_lucros.columns[1::2]
+    df_exp_vinho_maiores_lucros = df_exp_vinho_maiores_lucros[cols]
+    #st.write(df_exp_vinho_maiores_lucros)
+    df_sample = df_exp_vinho_maiores_lucros.head(10)
+    df_sample.drop(columns='Total em US$', inplace=True)
+    df_sample = df_sample.T
+    fig = go.Figure()
+    exec = 0
+    for list in df_sample.T.values.tolist():
+        fig.add_trace(go.Scatter(x=df_sample.index, y=list, name=df_sample.columns[exec]))
+        exec +=1    
+    
+    fig.update_layout(autosize=False, width=1300, height=500)
+    st.plotly_chart(fig)
+    
+with st.expander("Exportações e Lucros do Brasil nos Últimos 15 anos"):
+    st.subheader("Linha do Tempo dos Países que mais Exportaram e Geraram Lucro ao Brasil nos Últimos 15 Anos")
+    v0 = df_exp_vinho_litros[df_exp_vinho_litros.columns[1::2][:-1]].sum().values.tolist()
+    v1 = df_exp_vinho_litros[df_exp_vinho_litros.columns[0::2][:-1]].sum().values.tolist()
+
+    fig = go.Figure(data=[
+        go.Bar(name="Total em Litros(Kg)", x=df_exp_vinho_litros.columns[0::2][:-1], y=v0, marker_color='indianred'),
+        go.Bar(name="Total em US$", x=df_exp_vinho_litros.columns[0::2][:-1], y=v1, marker_color='lightsalmon')
+    ])
+    
+    #fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    st.plotly_chart(fig)
+    # plt.figure(figsize=(22,8))
+    # plt.plot(df_sample.T.index, df_sample.T.values)
+    # plt.legend(df_sample.T.columns[0:12])
+    # plt.ticklabel_format(style='plain', axis='y')
+    # plt.xticks(rotation=90)
+    # #plt.axhline(y=df_sample.T.values.mean(), color='red', linestyle='--', linewidth=3, label='Avg')
+    # plt.title("Linha do Tempo dos Países que mais exportaram vinho nos Últimos 15 anos")
+    # st.write(plt.show())
+    
     #graph = alt.Chart(df_exp_vinho).mark_boxplot().encode(y="Total em Litros").properties(width=500)
     
-    df_sample = df_exp_vinho_litros_resumida.loc[(df_exp_vinho_litros_resumida["Total em Litros"] > 100000) & (df_exp_vinho_litros_resumida["Total em Litros"] <= 1000000)].sort_values(by="Total em Litros", ascending=False)
-    plt.figure(figsize=(22,8))
-    x_axis = np.arange(len(df_sample.index))
-    plt.bar(x_axis - 0.2, df_sample[['Total em Litros']].T.sum().values,width=0.4, label = "Litros")
-    plt.bar(x_axis + 0.2, df_sample[['Total em US$']].T.sum().values,width=0.4,  label="Valor US$")
-    plt.ticklabel_format(style='plain', axis='y')
-    plt.xticks(x_axis, df_sample.index)
-    plt.xticks(rotation=90)
-    #plt.axhline(y=df_exportacao_geral_litros.sum().median(), color='red', linestyle='--', linewidth=3, label='Mediana')
-    #plt.axhline(y=df_exportacao_geral_litros.sum().mean(), color='blue', linestyle='--', linewidth=3, label='Média')
-    plt.title("Linha do Tempo de Exportação de Vinho e Lucro(US$) do Brasil nos Últimos 15 anos")
-    plt.legend();
-    
-    
+    # df_sample = df_exp_vinho_litros_resumida.loc[(df_exp_vinho_litros_resumida["Total em Litros"] > 100000) & (df_exp_vinho_litros_resumida["Total em Litros"] <= 1000000)].sort_values(by="Total em Litros", ascending=False)
+    # plt.figure(figsize=(22,8))
+    # x_axis = np.arange(len(df_sample.index))
+    # plt.bar(x_axis - 0.2, df_sample[['Total em Litros']].T.sum().values,width=0.4, label = "Litros")
+    # plt.bar(x_axis + 0.2, df_sample[['Total em US$']].T.sum().values,width=0.4,  label="Valor US$")
+    # plt.ticklabel_format(style='plain', axis='y')
+    # plt.xticks(x_axis, df_sample.index)
+    # plt.xticks(rotation=90)
+    # #plt.axhline(y=df_exportacao_geral_litros.sum().median(), color='red', linestyle='--', linewidth=3, label='Mediana')
+    # #plt.axhline(y=df_exportacao_geral_litros.sum().mean(), color='blue', linestyle='--', linewidth=3, label='Média')
+    # plt.title("Linha do Tempo de Exportação de Vinho e Lucro(US$) do Brasil nos Últimos 15 anos")
+    # plt.legend();
