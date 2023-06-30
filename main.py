@@ -10,6 +10,21 @@ from st_aggrid        import AgGrid, GridOptionsBuilder
 
 PRIMARY_COLOR = "#572b52"
 
+def main():
+    st.header("Projeto da Vitivinicultura")
+    st.write(" Apresentamos um projeto de análise da importação e exportação da Vitivinicultura como uma oportunidade estratégica de investimento. A indústria vinícola, com seu potencial de crescimento e lucratividade, tem se mostrado cada vez mais atrativa para investidores interessados em explorar os mercados internacionais de vinho.")
+    st.write("Uma das principais vantagens competitivas desta vinícola é a sua capacidade de combinar tradição e inovação. Com uma equipe de enólogos experientes, que valorizam as técnicas tradicionais de vinificação, mas também estão abertos à adoção de métodos inovadores, a vinícola tem conseguido criar vinhos que encantam paladares exigentes em todo o mundo. Além disso, a vinícola tem uma sólida estratégia de comércio e produção para sustentar suas atividades de importação e exportação. A produção é cuidadosamente planejada, levando em consideração as demandas e tendências do mercado global de vinhos.")
+    st.write("No que se refere ao comércio, a empresa busca estabelecer parcerias estratégicas com distribuidores e importadores em mercados-chave ao redor do mundo. Essas parcerias permitem a ampla distribuição dos vinhos da vinícola em diferentes regiões, atingindo consumidores exigentes e explorando novas oportunidades de negócio.")
+
+
+    st.header("Objetivo do Projeto")
+    st.write("O objetivo é demonstrar análises abrangentes da importação e exportação da Vitivinicultura, com foco em fornecer informações relevantes para investidores interessados em explorar as oportunidades de negócios nesse setor. Buscamos identificar as principais tendências, desafios e oportunidades do comércio internacional de vinhos, analisando as dinâmicas globais do mercado e distribuição.")
+    st.write("Neste contexto, o presente projeto tem como objetivo analisar também detalhadamente o comércio e a produção da vinícola no âmbito da importação e exportação de vinhos. Ao realizar essa análise aprofundada da importação e exportação de vinhos do Brasil, esperamos contribuir para o entendimento e a valorização dessa indústria, bem como fornecer insights para aqueles que desejam se envolver nesse mercado em expansão, também espera-se oferecer aos investidores uma visão clara e abrangente sobre a vinícola, destacando as vantagens competitivas, o potencial de crescimento e as oportunidades de investimento no setor. Essas informações serão fundamentais para embasar decisões estratégicas e maximizar o retorno sobre o investimento.")
+
+
+if __name__ == '__main__':
+    main()
+
 def apply_custom_style():
     st_custom_style = """
                 <style>
