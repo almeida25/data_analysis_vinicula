@@ -8,6 +8,7 @@ import altair as alt
 import plotly.express as px
 import plotly.graph_objs as go
 from st_aggrid import AgGrid, GridOptionsBuilder
+import scripts.analise as analise
 
 PRIMARY_COLOR = "#572b52"
 
@@ -301,3 +302,105 @@ with st.expander("$ Vendido"):
     # plt.title("Linha do Tempo de Exportação de Vinho e Lucro(US$) do Brasil nos Últimos 15 anos")
     # plt.legend();
     
+## Gabriel Analise
+
+with st.expander('Porcentagem dos 15 paises que mais faturaram para o Brasil em Dólar'):
+    #st.dataframe(df_exp_vinho_litros_resumida)
+    df_porc_p15 = analise.grafico_pie_p15(df_exp_vinho_litros_resumida1)
+    #st.dataframe(df_porc_p15)
+    fig = go.Figure()
+    fig.add_pie(labels=df_porc_p15['grupo'], values=df_porc_p15['total_dolares'])
+    st.plotly_chart(fig)
+    #st.pyplot(plt.pie(df_porc_p15['total_dolares'], labels=df_porc_p15['grupo']))
+    #plt.show()
+
+with st.expander('Total de importação em dólar por continente'):
+    s_p15_regiao = analise.grafico_bar_p15_by_regiao(df_exp_vinho_litros_resumida1)
+    fig = go.Figure(data=[
+        go.Bar(name="Total em US$", x=s_p15_regiao.index, y=s_p15_regiao, marker_color='indianred'),
+    ])
+    
+    #fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    
+    st.plotly_chart(fig)
+    #st.dataframe(s_p15_regiao)
+
+with st.expander('Tendencia de exportação de cada continente'):
+    df_exp_vinho_maiores_lucros = df_exp_vinho_litros.sort_values(by='Total em US$', ascending=False)
+    cols = df_exp_vinho_maiores_lucros.columns[1::2][-16:]
+    df_exp_vinho_maiores_lucros = df_exp_vinho_maiores_lucros[cols]
+
+    df_p15 = analise.grafico_line_p15_by_regiao(df_exp_vinho_maiores_lucros)
+    fig = go.Figure()
+    exec = 0
+    for list in df_p15.values.tolist():
+        fig.add_trace(go.Scatter(x=df_p15.columns, y=list, name=df_p15.index[exec]))
+        exec +=1    
+    
+    fig.update_layout(autosize=False, width=1300, height=500)
+    st.plotly_chart(fig)
+    #st.dataframe(df_p15)
+
+with st.expander('Total de exportação por nível socioeconomico'):
+    df_p15 = analise.grafico_bar_p15_by_socio(df_exp_vinho_maiores_lucros)
+    # y = total em dolar
+    # x = df.index
+    fig = go.Figure(data=[
+        #go.Bar(name="Total em US$", x=df_exp_vinho_litros.columns[0::2][:-1], y=v0, marker_color='indianred'),
+        go.Bar(name="Total paises", x=df_p15.index, y=df_p15['Total em US$'], marker_color=['lightsalmon','indianred', 'lightsalmon'])
+    ])
+    
+    #fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    
+    st.plotly_chart(fig)
+    #st.dataframe(df_p15)
+
+with st.expander('Tendencia de exportação em dólar por nivel socioeconomico'):
+    df_p15 = analise.grafico_line_p15_by_socio(df_exp_vinho_maiores_lucros)
+    # Para renderizar é preciso ser esse df -> df_p15.iloc[:,:-1].T
+    df_p15 = df_p15.iloc[:,:-1]
+    #st.write(df_p15.values.tolist())
+    
+    fig = go.Figure()
+    exec = 0
+    for list in df_p15.values.tolist():
+        fig.add_trace(go.Scatter(x=df_p15.columns, y=list, name=df_p15.index[exec]))
+        exec +=1    
+    
+    fig.update_layout(autosize=False, width=1300, height=500)
+    st.plotly_chart(fig)
+
+with st.expander('Quantidade de paises por nivel socioeconomico'):
+    df_p15 = analise.grafico_bar_p15_qtde_by_socio(df_exp_vinho_maiores_lucros)
+
+    fig = go.Figure(data=[
+        #go.Bar(name="Total em US$", x=df_exp_vinho_litros.columns[0::2][:-1], y=v0, marker_color='indianred'),
+        go.Bar(name="Total paises", x=df_p15.index, y=df_p15, marker_color=['lightsalmon','indianred', 'lightsalmon'])
+    ])
+    
+    #fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    
+    st.plotly_chart(fig)
+    #st.dataframe(df_p15)
+
+with st.expander('Comparação dos paises que mais consomem com a o GPD'):
+    df_p15 = analise.df_gdp(df_exp_vinho_maiores_lucros)
+    st.dataframe(df_p15)
