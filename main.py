@@ -16,6 +16,7 @@ def main():
     
     st.set_page_config(page_title="Vitivinicultura Brasileira")
     st.header("Vitivinicultura Brasileira")
+    st.write('')
     st.subheader("Introdução")
     st.write("A VitiBrasil é uma vinícola de renome internacional, dedicada à produção de vinhos excepcionais, e tem o prazer de compartilhar seu sucesso nas exportações nos últimos anos. Com base em sua expertise, qualidade incomparável e compromisso com a excelência, a VitiBrasil se estabeleceu como uma das principais marcas de vinhos do Brasil. Neste texto, destacaremos o crescimento impressionante das exportações da VitiBrasil e os motivos pelos quais investir nessa vinícola promissora é uma oportunidade única.")
     st.write("Nos últimos anos, a VitiBrasil tem ganhado destaque no cenário internacional como uma produtora de vinhos de alta qualidade e sofisticação. Com uma visão inovadora e um compromisso em oferecer vinhos que conquistem os paladares mais exigentes, a empresa tem alcançado resultados notáveis no mercado de exportação.")
@@ -120,9 +121,6 @@ apply_custom_style()
 # Configurations in Streamlit
 
 
-st.title("Relatório de Exportação de Vinhos")
-st.write(' ')
-
 # Read Dataframes
 df_exp_vinho     = pd.read_csv('datasets/tech-challenge/content/ExpVinho.csv', delimiter=";")
 
@@ -167,24 +165,11 @@ for idx, row in df_exp_vinho_litros.iterrows():
 df_exp_vinho_litros_resumida = df_exp_vinho_litros[df_exp_vinho_litros.columns[-2:]]
 df_exp_vinho_litros_resumida['Total em US$'] = df_exp_vinho_litros_resumida['Total em US$'].astype(float)
 
-# Visualização dos Dados Exportação
+############### Visualização Top 15 Países ###############
+tab1, tab2 = st.tabs(["📊 Os 15 Principais Exportadores", "📊 Exportações como um Todo"])
+with tab1:
 
-with st.expander("📊 Informações de Exportação Geral"):
-    
-    st.subheader("Tabela Resumida com Informações de Exportações nos Últimos 15 Anos")
-    st.write("Nos últimos 15 anos, a VitiBrasil alcançou um crescimento notável em suas exportações de vinhos, conquistando mercados em diversos países ao redor do mundo. Durante esse período, alguns países se destacaram como destinos-chave para os vinhos da VitiBrasil.")
-    st.write("Os Estados Unidos emergiram como um dos principais mercados para as exportações da VitiBrasil. Com sua enorme base de consumidores e uma crescente apreciação por vinhos de qualidade, os Estados Unidos têm sido um mercado estratégico para a empresa. Através de parcerias com importadores e distribuidores locais, a VitiBrasil conseguiu aumentar sua presença e expandir sua participação de mercado nesse país.")
-    st.write("Além disso, o mercado europeu desempenhou um papel significativo nas exportações da vinícola. Países como Rússia, Reino Unido, Alemanha e França se destacaram como destinos importantes para os vinhos da empresa. A Europa, conhecida por sua tradição vitivinícola, tem apreciado a qualidade e a diversidade dos vinhos da VitiBrasil, abrindo portas para uma presença cada vez maior da empresa nesse continente.")
-    df_exp_vinho_litros_resumida1 = df_exp_vinho_litros_resumida.reset_index()
-    builder = GridOptionsBuilder.from_dataframe(df_exp_vinho_litros_resumida1)
-    builder.configure_pagination(paginationAutoPageSize=False, paginationPageSize=7)
-    gol                        = builder.build()
-    AgGrid(df_exp_vinho_litros_resumida1, gridOptions=gol)
-
-    
-with st.expander("Os 15 Maiores Exportadores de Vinho"):
-    #px.line()
-    st.subheader("Linha do Tempo dos Países que mais geraram Lucro ao Brasil nos Últimos 15 Anos")
+    st.subheader("Lucro Obtido nos Últimos 15 Anos")
     st.write("Ao analisar as tendências e padrões dos países que mais geraram lucro para o Brasil nos últimos 15 anos podemos oferecer uma visão estratégica valiosa para potenciais investidores. Durante esse período, o Brasil estabeleceu relações econômicas sólidas com países-chave, como os Estados Unidos, a China, a Alemanha, o Reino Unido e os Países Baixos. Essas nações se destacaram como parceiros comerciais consistentes, contribuindo significativamente para a economia brasileira. Por outro lado, o Paraguai emergiu como um mercado promissor na importação de vinhos brasileiros. Embora seja um país vizinho, sua demanda crescente por vinhos de qualidade tem criado oportunidades atrativas para investidores interessados nesse setor. A proximidade geográfica e a relação comercial entre o Brasil e o Paraguai fornecem uma base sólida para o intercâmbio comercial, com o Paraguai se tornando um destino estratégico para as exportações de vinhos brasileiros.")
     st.write("Essa combinação de fatores oferece um cenário favorável para investidores que buscam explorar o potencial do mercado de vinhos no Brasil e no Paraguai. Os Estados Unidos, a China e o Reino Unido, como importantes parceiros comerciais do Brasil, representam oportunidades sólidas para expandir as exportações de vinhos brasileiros e estabelecer parcerias duradouras. Além disso, o crescente interesse do Paraguai na importação de vinhos brasileiros destaca o potencial de negócios no mercado regional. Investir na produção e exportação de vinhos de qualidade, adaptados às preferências do consumidor paraguaio, pode proporcionar um crescimento significativo no lucro gerado para o Brasil.")
     st.write("Essa análise conjunta ressalta a importância estratégica desses países como destinos para investimentos no setor de vinhos. A diversificação das exportações de vinhos brasileiros, atendendo às demandas dos mercados estabelecidos e explorando o potencial de novos mercados como o Paraguai, pode fortalecer a posição competitiva do Brasil no cenário global de vinhos. Portanto, para investidores interessados em explorar oportunidades no setor de vinhos, a análise dos países que mais geraram lucro para o Brasil e a relevância do mercado paraguaio como importador de vinhos brasileiros fornecem uma base sólida para avaliar o potencial de investimento. O Brasil apresenta uma oferta diversificada e de qualidade, com mercados estabelecidos e em crescimento, permitindo uma entrada estratégica e rentável nesse segmento de negócio.")
@@ -200,11 +185,11 @@ with st.expander("Os 15 Maiores Exportadores de Vinho"):
     for list in df_sample.T.values.tolist():
         fig.add_trace(go.Scatter(x=df_sample.index, y=list, name=df_sample.columns[exec]))
         exec +=1    
-    
+
     fig.update_layout(autosize=False, width=1300, height=500)
     st.plotly_chart(fig)
     
-with st.expander("Exportações e Lucros do Brasil nos Últimos 15 anos"):
+    st.write('')
     st.subheader("Linha do Tempo dos Países que mais Exportaram e Geraram Lucro ao Brasil nos Últimos 15 Anos")
     st.write("A análise comparativa entre o total de litros de vinho exportados e o total de dólares gerados com as exportações de vinho no Brasil é de grande relevância para os investidores que desejam entender e avaliar o potencial de investimento nesse setor. Ao examinar esses dados nos últimos anos, é possível obter insights sobre a eficiência e o valor agregado das exportações de vinho brasileiro. A análise revela uma relação complexa entre a quantidade de litros exportados e o valor em dólares gerado.")
     st.write("É importante ressaltar que apenas o volume de litros de vinho exportados não é um indicador definitivo do sucesso das exportações. A qualidade, a diversidade e a segmentação dos mercados de destino têm um impacto significativo nos resultados financeiros. Em alguns casos, pode ser observado que um grande volume de litros de vinho é exportado, mas o valor em dólares gerado é relativamente baixo. Isso pode sugerir a necessidade de ajustes estratégicos, como a identificação de segmentos de mercado mais lucrativos e o aprimoramento da qualidade e imagem dos vinhos brasileiros para atender às preferências desses consumidores. Por outro lado, é possível identificar situações em que um volume menor de litros de vinho exportados resulta em um valor mais alto em dólares. Isso pode indicar a conquista de mercados de maior poder aquisitivo, a oferta de vinhos premium com preços mais elevados e uma estratégia de marketing eficiente.")
@@ -228,65 +213,40 @@ with st.expander("Exportações e Lucros do Brasil nos Últimos 15 anos"):
    ))
     st.plotly_chart(fig)
     
-with st.expander("Grafico de Mapa"):
-    df_exp_vinho_litros_mapa = df_exp_vinho_litros.copy()
-    df_exp_vinho_litros_mapa = df_exp_vinho_litros_mapa[df_exp_vinho_litros_mapa.columns[0::2][:-1]]
-    
-    paises =  pd.read_json('assets/iso_paises.json', lines=True)
-    df_exp_vinho_litros_mapa['ISO ALPHA'] = ''
-    for _, row in paises.iterrows():
-        df_exp_vinho_litros_mapa.loc[df_exp_vinho_litros_mapa.index.str.contains(row['nome']), 'ISO ALPHA'] = row['alpha-3']
-    
-    st.write(df_exp_vinho_litros_mapa.loc[df_exp_vinho_litros_mapa['ISO ALPHA'] == ''])
-    
-    pais  = []
-    ano   = []
-    valor = []
-    iso   = []
-    for pais_name, row  in df_exp_vinho_litros_mapa.iterrows():
-        ano_start = 2007
-        for _ in range(0, 15):
-            pais.append(pais_name)
-            ano.append(ano_start)
-            valor.append(row[f'{ano_start}'])
-            iso.append(row['ISO ALPHA'])
-            ano_start += 1
-
-    df_mapa = pd.DataFrame({"País": pais, "Ano": ano, "Litros(KG)": valor, "ISO Alpha": iso})
-    st.subheader("Litros Exportados nos Últimos 15 anos")
-    st.write("Nos últimos 15 anos, a VitiBrasil, uma das principais empresas produtoras de vinho do Brasil, tem se destacado no mercado internacional, exportando uma quantidade significativa de litros para diversos países ao redor do mundo. Durante esse período, vários países se destacaram como principais destinos das exportações da VitiBrasil. ")
-    st.write("Entre os principais países que receberam os litros de vinho brasileiro da VitiBrasil, podemos citar:")
-    st.write("1. Estados Unidos: Os Estados Unidos se tornaram um mercado importante para a VitiBrasil nos últimos anos. Com uma demanda crescente por vinhos de qualidade, os consumidores americanos têm apreciado cada vez mais os produtos da VitiBrasil, o que resultou em um aumento significativo nas exportações de litros para esse país.")
-    st.write("2. Paraguai: O Paraguai tem se destacado como um mercado promissor para os vinhos brasileiros. A VitiBrasil tem aproveitado essa oportunidade, exportando litros de vinho para o país. O interesse crescente dos consumidores paraguaios pelos vinhos brasileiros tem contribuído para o aumento das exportações ao longo dos anos.")
-    st.write("3. Alemanha: A Alemanha é conhecida por sua cultura do vinho e seu alto padrão de qualidade. A VitiBrasil encontrou um nicho nesse mercado exigente, exportando litros de vinho para a Alemanha. A reputação da VitiBrasil tem se fortalecido entre os apreciadores de vinho alemães, resultando em um aumento nas exportações ao longo dos anos.")
-    st.write("4. China: O mercado chinês tem se tornado cada vez mais relevante para a indústria vinícola global. A VitiBrasil tem aproveitado essa oportunidade, exportando litros de vinho para a China. O interesse crescente dos consumidores chineses pelos vinhos brasileiros tem contribuído para o aumento das exportações.")
-    st.write("Além desses países mencionados, a VitiBrasil também tem exportado litros de vinho para outros destinos ao redor do mundo, como Rússia, Japão, Reino Unido e outros países da Europa e da América do Sul. Essa diversificação de mercados tem sido fundamental para o crescimento das exportações da VitiBrasil nos últimos 15 anos. Essa expansão das exportações da VitiBrasil reflete a qualidade e a competitividade dos vinhos brasileiros no cenário internacional. A empresa tem investido em tecnologia, sustentabilidade e aprimoramento da produção para atender às exigências dos mercados internacionais e consolidar sua posição como uma referência na indústria vitivinícola brasileira.")
-
-    fig = px.choropleth(df_mapa, locations='ISO Alpha', color='Litros(KG)', hover_name='País',
-                        projection='eckert4', animation_frame='Ano',color_continuous_scale=[[0, 'rgb(240,240,240)'],
-                      [0, 'rgb(255,255,255)'],
-                      [0.25, 'rgb(161,119,155)'],
-                      [0.5, 'rgb(139,95,133)'],
-                      [0.75, 'rgb(107,62,101)'],
-                      [1, 'rgb(87,43, 82)']],
-                        title='GDP per Capita by Country')
-    
-    
-    fig.update_layout(geo=dict(bgcolor= 'rgba(0,0,0,0)', lakecolor='#4E5D6C',
-                                          landcolor='rgba(51,17,0,0.2)',
-                                          subunitcolor='grey'),
-                                  title = '',font = {"size": 13, "color":"White"},titlefont = {"size": 25, "color":"White"},
-                                  geo_scope='world', margin={"r":0,"t":40,"l":0,"b":0}, plot_bgcolor='#4E5D6C', 
-                                  width=1300, height=600)
+    ####### GRÁFICO DE % DOS PAISES QUE MAIS FATURARAM #######
+    st.write('Porcentagem dos 15 paises que mais faturaram para o Brasil em Dólar')
+    df_exp_vinho_litros_resumida1 = df_exp_vinho_litros_resumida.reset_index()
+    df_porc_p15 = analise.grafico_pie_p15(df_exp_vinho_litros_resumida1)
+    fig = go.Figure()
+    fig.add_pie(labels=df_porc_p15['grupo'], values=df_porc_p15['total_dolares'])
     st.plotly_chart(fig)
     
 
-with st.expander("Crescimento x Perda nos últimos Anos"):
-    st.subheader("Crescimento x Perda nas exportações de vinho nos últimos anos")
-    st.write("O gráfico em questão apresenta o crescimento e a perda das exportações da VitiBrasil, uma das principais empresas produtoras de vinho do Brasil, nos últimos anos. Essa representação visual é valiosa para compreender a evolução das exportações da empresa e analisar seu desempenho no mercado internacional.")
-    st.write("Ao observar o gráfico, podemos identificar diferentes períodos de crescimento e perda ao longo dos anos. É importante destacar que os fatores que impulsionam ou afetam as exportações podem variar, incluindo mudanças nas condições econômicas globais, flutuações cambiais, políticas comerciais, demanda dos consumidores e até mesmo eventos específicos que possam impactar o mercado de vinhos. Durante alguns períodos, podemos notar um crescimento acentuado nas exportações da VitiBrasil. Esses momentos de crescimento podem ser resultado de estratégias de expansão em novos mercados, investimentos em marketing e promoção da marca, melhorias na qualidade dos vinhos ou até mesmo o reconhecimento internacional dos produtos da VitiBrasil.")
-    st.write("Por outro lado, é possível observar períodos de perda nas exportações. Essas quedas podem ocorrer devido a fatores externos, como crises econômicas, flutuações nas demandas dos mercados internacionais, concorrência acirrada de outros produtores de vinho ou desafios logísticos na cadeia de suprimentos. Identificar as causas dessas perdas pode ser crucial para a empresa ajustar suas estratégias e mitigar riscos futuros. É importante ressaltar que as flutuações nas exportações são comuns no mercado global de vinhos e em qualquer indústria. Portanto, é fundamental que a VitiBrasil esteja preparada para se adaptar às mudanças do mercado, diversificar seus mercados de exportação e continuar aprimorando seus produtos e serviços para se manter competitiva no cenário internacional.")
-    st.write("Ao analisar o gráfico de crescimento versus perda das exportações da VitiBrasil nos últimos anos, a empresa pode obter insights valiosos para orientar suas estratégias futuras. Isso inclui identificar oportunidades de crescimento, otimizar suas operações, fortalecer relacionamentos com parceiros comerciais, investir em inovação e garantir a qualidade e a consistência de seus produtos.")
+    ###### GRAFICO DE LINHA DOS PAISES POR NIVEL SOCIOECONIMO ######
+    st.subheader('Tendencia de exportação em dólar por nivel socioeconomico')
+    df_p15 = analise.grafico_line_p15_by_socio(df_exp_vinho_maiores_lucros)
+    # Para renderizar é preciso ser esse df -> df_p15.iloc[:,:-1].T
+    df_p15 = df_p15.iloc[:,:-1]
+    #st.write(df_p15.values.tolist())
+    
+    fig = go.Figure()
+    exec = 0
+    for list in df_p15.values.tolist():
+        fig.add_trace(go.Scatter(x=df_p15.columns, y=list, name=df_p15.index[exec]))
+        exec +=1    
+    
+    fig.update_layout(autosize=False, width=1300, height=500)
+    st.plotly_chart(fig)
+    
+    ####### TABELA DE COMPARAÇÃO DOS PAISES QUE MAIS CONSOMEM COM A GPD #######
+    st.subheader('Comparação dos paises que mais consomem com a o GPD')
+    df_p15 = analise.df_gdp(df_exp_vinho_maiores_lucros)
+    st.dataframe(df_p15)
+    
+    
+with tab2:  
+    ####### GRÁFICO DE LINHA % ANUAL GERAL #######
+    st.subheader("Crescimento x Perda nos últimos Anos")
     df_exp_vinho_litros1 = df_exp_vinho_litros.sort_values(by='Total em US$', ascending=False)
     df_exp_vinho_litros1 = df_exp_vinho_litros1
     df_dolar_resumida  = df_exp_vinho_litros1[df_exp_vinho_litros1.columns[1::2][:-1]]
@@ -311,7 +271,6 @@ with st.expander("Crescimento x Perda nos últimos Anos"):
         result.append(((v2['Total em US$'].values - v1['Total em US$'].values) / v1['Total em US$'].values) * 100)
     result2 = []
     for value in result[:-1]:
-        #st.write(round(value[0],2))
         result2.append(round(value[0],2))
     result2.insert(0, 0)
     
@@ -322,13 +281,11 @@ with st.expander("Crescimento x Perda nos últimos Anos"):
         result.append(((v2['Total em Litros'].values - v1['Total em Litros'].values) / v1['Total em Litros'].values) * 100)
     result3 = []
     for value in result[:-1]:
-        #st.write(round(value[0],2))
         result3.append(round(value[0],2))
     result3.insert(0, 0)
     
-    
-    
     fig = go.Figure()
+    
     text1 = [str(value)+"%" for value in result2]
     text2 = [str(value)+"%" for value in result3]
     fig.add_trace(go.Scatter(x=year, y=result2, name='Total em US$',text=text1, marker_color='indianred', mode='lines+markers+text'))
@@ -340,53 +297,10 @@ with st.expander("Crescimento x Perda nos últimos Anos"):
       tick0 = 1,
       dtick = 1
    ))
-    st.plotly_chart(fig)
-
-## Gabriel Analise
-
-with st.expander('Porcentagem dos 15 paises que mais faturaram para o Brasil em Dólar'):
-    st.subheader("15 Países que mais faturaram para o Brasil")
-    st.write("Ao observar o gráfico, podemos identificar os principais países que se destacaram na contribuição para o faturamento da VitiBrasil. Esses países têm desempenhado um papel crucial no sucesso das exportações da empresa e no fortalecimento da presença do vinho brasileiro nos mercados internacionais. Os dados percentuais fornecidos no gráfico demonstram a proporção do faturamento que cada país representa. Isso permite avaliar a relevância relativa de cada mercado para a VitiBrasil e identificar as principais fontes de receita.")
-    st.write("Dentre os 15 países, é possível que alguns tenham contribuído com uma porcentagem significativamente maior do faturamento total, indicando uma maior dependência da VitiBrasil desses mercados específicos. Por outro lado, outros países podem ter uma participação menor, mas ainda assim desempenham um papel importante como mercados em crescimento ou como nichos estratégicos. Essa análise percentual é valiosa para a VitiBrasil, pois permite que a empresa identifique seus principais mercados-alvo e concentre esforços para atender às demandas desses países de maneira eficaz. Além disso, a empresa pode identificar oportunidades de expansão em mercados com uma participação menor, mas com potencial de crescimento.")
-    st.write("É importante ressaltar que a dinâmica do mercado de vinhos é fluida, com mudanças nas preferências dos consumidores, flutuações econômicas e fatores políticos que podem influenciar as exportações. Portanto, a VitiBrasil deve monitorar essas tendências e ajustar suas estratégias de acordo para garantir um crescimento sustentável e a manutenção de relacionamentos sólidos com os principais países compradores.")
-    #st.dataframe(df_exp_vinho_litros_resumida)
-    df_porc_p15 = analise.grafico_pie_p15(df_exp_vinho_litros_resumida1)
-    #st.dataframe(df_porc_p15)
-    fig = go.Figure()
-    fig.add_pie(labels=df_porc_p15['grupo'], values=df_porc_p15['total_dolares'])
-    st.plotly_chart(fig)
-    #st.pyplot(plt.pie(df_porc_p15['total_dolares'], labels=df_porc_p15['grupo']))
-    #plt.show()
-
-with st.expander('Total de importação em dólar por continente'):
-    st.subheader("Comparativo do Total de Importação em dólar dos continentes")
-    st.write("O gráfico em questão apresenta o total de importação em dólar dos continentes África, América, Ásia e Europa. Essa visualização permite uma comparação entre as importações dessas regiões e fornece insights sobre as dinâmicas do comércio internacional.")
-    st.write("Ao analisar o gráfico, podemos observar que tanto a Europa quanto a América possuem valores quase iguais de importação em dólar. Isso indica que esses dois continentes têm uma participação significativa nas importações globais e são importantes destinos de bens e serviços provenientes de outras regiões. No entanto, apesar de ter valores semelhantes à América, a Europa continua sendo a maior importadora dos quatro continentes. Isso pode ser resultado de uma economia robusta, uma ampla base industrial, uma extensa rede de acordos comerciais e uma demanda diversificada por produtos importados.")
-    st.write("Por outro lado, a Ásia e a África são as regiões com os menores valores de importação em dólar. Isso pode refletir diferentes fatores, como economias emergentes, infraestrutura comercial menos desenvolvida, dependência de recursos naturais ou uma base industrial menos diversificada. Essas características podem limitar a capacidade dessas regiões de importar grandes volumes de bens e serviços.")
-    st.write("Em resumo, o gráfico do total de importação em dólar dos continentes África, América, Ásia e Europa revela a importância da Europa e da América como principais importadoras, com valores quase iguais. Enquanto isso, a Ásia e a África mostram valores menores, com a África ocupando a posição de menor importador. Essa análise pode fornecer insights sobre as dinâmicas do comércio internacional e auxiliar na elaboração de estratégias comerciais eficazes para cada continente.")
-    s_p15_regiao = analise.grafico_bar_p15_by_regiao(df_exp_vinho_litros_resumida1)
-    fig = go.Figure(data=[
-        go.Bar(name="Total em US$", x=s_p15_regiao.index, y=s_p15_regiao, marker_color='indianred'),
-    ])
-    
-    #fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
-    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
-    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
-      tickmode = 'linear',
-      tick0 = 1,
-      dtick = 1
-   ))
     
     st.plotly_chart(fig)
-    #st.dataframe(s_p15_regiao)
 
-with st.expander('Tendencia de exportação de cada continente'):
-    st.subheader("Tendencia de exportação de cada continente")
-    st.write("1. África: A África tem emergido como um continente promissor na produção de vinhos e, consequentemente, na exportação desses produtos. Países como África do Sul, Marrocos e Argélia têm investido na indústria vinícola e ganhado reconhecimento internacional por seus vinhos de alta qualidade. A exportação de vinhos africanos tem apresentado uma tendência crescente, impulsionada pela expansão da demanda global por vinhos exóticos e distintos. Esses países têm aproveitado a oportunidade para posicionar-se como produtores de vinhos premium, diversificando sua oferta e explorando mercados internacionais em busca de crescimento.")
-    st.write("2. América: A América é um continente com uma tradição estabelecida na produção de vinhos e uma forte presença no mercado de exportação. Países como Estados Unidos, Argentina, Chile e Brasil são conhecidos por sua produção e exportação de vinhos de alta qualidade. Os Estados Unidos, em particular, têm experimentado um crescimento significativo na exportação de vinhos nos últimos anos, impulsionado pelo aumento do consumo interno e pela crescente demanda global por vinhos americanos. A América Latina, com seu clima favorável e terroirs diversificados, tem se destacado na produção de vinhos finos e ganhado reconhecimento internacional.")
-    st.write("3. Ásia: Embora a produção de vinhos na Ásia seja relativamente recente, o continente tem demonstrado um crescimento expressivo na exportação de vinhos nos últimos anos. Países como China, Japão e Índia estão investindo na indústria vitivinícola e buscando aumentar sua presença no mercado global de vinhos. A crescente classe média asiática, juntamente com um maior interesse pelo consumo de vinhos, impulsionou a demanda interna e a exportação de vinhos asiáticos. A China, em particular, tem se destacado como um mercado em rápido crescimento e também como produtor de vinhos de qualidade. Essa tendência indica um potencial significativo para o crescimento contínuo da exportação de vinhos asiáticos.")
-    st.write("4. Europa: A Europa é tradicionalmente reconhecida como uma região líder na produção e exportação de vinhos. Países como França, Itália, Espanha e Portugal são conhecidos por sua rica tradição vinícola e por produzirem alguns dos melhores vinhos do mundo. A exportação de vinhos europeus continua a desempenhar um papel importante no mercado global, com os países europeus consolidando sua posição como fornecedores confiáveis de vinhos de alta qualidade. A diversidade de estilos, terroirs e variedades de uva oferecidas pela Europa contribui para sua atratividade no mercado de exportação de vinhos.")
-    st.write("Em resumo, a tendência de exportação de vinhos varia em cada continente. A África está emergindo como uma nova região de exportação, a América e a Europa têm uma posição estabelecida como líderes na exportação de vinhos, e a Ásia está experimentando um rápido crescimento nesse mercado. Essas tendências refletem o desenvolvimento da indústria vitivinícola em cada continente e as preferências em constante evolução dos consumidores em todo o mundo.")
+    ####### GRÁFICO DE LINHA DOS CONTINENTES #######    
     df_exp_vinho_maiores_lucros = df_exp_vinho_litros.sort_values(by='Total em US$', ascending=False)
     cols = df_exp_vinho_maiores_lucros.columns[1::2][-16:]
     df_exp_vinho_maiores_lucros = df_exp_vinho_maiores_lucros[cols]
@@ -396,58 +310,103 @@ with st.expander('Tendencia de exportação de cada continente'):
     exec = 0
     for list in df_p15.values.tolist():
         fig.add_trace(go.Scatter(x=df_p15.columns, y=list, name=df_p15.index[exec]))
+        fig.update_xaxes(showspikes=True)
+        fig.update_yaxes(showspikes=True)
         exec +=1    
     
     fig.update_layout(autosize=False, width=1300, height=500)
     st.plotly_chart(fig)
-    #st.dataframe(df_p15)
-
-with st.expander('Total de exportação por nível socioeconomico'):
-    st.subheader("Total de exportação por nível Socioeconômico")
-    st.write("1. Países Desenvolvidos: Os países desenvolvidos são tradicionalmente grandes importadores e consumidores de vinhos de alta qualidade. Nações como Estados Unidos, Canadá, Reino Unido, Alemanha, França e Austrália têm uma cultura enraizada de apreciação do vinho e consumidores dispostos a pagar preços mais elevados por produtos premium. Esses países possuem uma demanda estabelecida por vinhos de diferentes regiões produtoras, tanto do Novo Mundo como do Velho Mundo. A tendência de consumo elevado tem impulsionado a importação de vinhos de prestígio e exclusivos.")
-    st.write("2. Países Subdesenvolvidos: Os países subdesenvolvidos geralmente enfrentam desafios econômicos e infraestruturais que limitam sua participação no mercado global de exportação de vinhos. No entanto, alguns países em desenvolvimento têm conseguido superar esses desafios e se estabelecer como produtores e exportadores de vinhos competitivos. Países como Argentina, Chile, Uruguai e Brasil têm investido na indústria vitivinícola, aproveitando seus recursos naturais e adotando práticas avançadas de vinificação. Essas nações têm visto um aumento na exportação de vinhos de qualidade a preços mais acessíveis, alcançando mercados regionais e globais.")
-    st.write("3. Países Emergentes: Os países emergentes estão se tornando cada vez mais importantes no mercado global de exportação de vinhos. Países como África do Sul, China, Índia e México têm experimentado um crescimento significativo no consumo e importação de vinhos. À medida que esses países passam por um rápido desenvolvimento socioeconômico, a classe média está se expandindo, o poder aquisitivo está aumentando e o interesse por produtos de qualidade, incluindo vinhos, está crescendo. Isso tem impulsionado a importação de vinhos de diferentes origens e estilos, bem como o desenvolvimento de vinícolas locais para atender à demanda crescente.")
-    st.write("Em resumo, a tendência de exportação de vinhos varia de acordo com o nível socioeconômico dos países. Países desenvolvidos são grandes importadores e consumidores de vinhos de alta qualidade. Países subdesenvolvidos estão conseguindo superar desafios para se estabelecer como produtores e exportadores competitivos. Países emergentes estão experimentando um rápido crescimento no consumo e importação de vinhos, impulsionados pelo desenvolvimento socioeconômico e aumento do poder aquisitivo. Essas tendências refletem as diferentes dinâmicas e oportunidades em cada nível socioeconômico.")
+    
+    ####### GRÁFICO DE BARRAS DAS QUESTÕES SOCIOECONOMICAS #######
     df_p15 = analise.grafico_bar_p15_by_socio(df_exp_vinho_maiores_lucros)
-    # y = total em dolar
-    # x = df.index
     fig = go.Figure(data=[
         #go.Bar(name="Total em US$", x=df_exp_vinho_litros.columns[0::2][:-1], y=v0, marker_color='indianred'),
         go.Bar(name="Total paises", x=df_p15.index, y=df_p15['Total em US$'], marker_color=['lightsalmon','indianred', 'lightsalmon'])
     ])
     
-    #fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
     fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
     fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
       tickmode = 'linear',
       tick0 = 1,
       dtick = 1
    ))
-    
-    st.plotly_chart(fig)
-    #st.dataframe(df_p15)
-
-with st.expander('Tendencia de exportação em dólar por nivel socioeconomico'):
-    st.subheader("Tendencia de exportação de vinhos em dólar por nível socioeconõmico")
-    st.write("1. Países Desenvolvidos: Os países desenvolvidos são tradicionalmente grandes exportadores de vinhos de alta qualidade. Nações como França, Itália, Espanha, Estados Unidos e Austrália têm uma longa tradição na produção de vinhos e são conhecidas por suas regiões vitivinícolas renomadas. Esses países têm uma vantagem competitiva no mercado global devido à sua reputação, experiência e habilidades de produção. Eles exportam uma ampla variedade de vinhos, incluindo vinhos tintos, brancos, espumantes e fortificados, e conseguem obter preços premium pelos seus produtos. A tendência de exportação de vinhos desses países desenvolvidos tem se mantido estável e até mesmo em crescimento, à medida que a demanda global por vinhos de alta qualidade continua a crescer.")
-    st.write("2. Países Subdesenvolvidos: Os países subdesenvolvidos estão gradualmente ganhando destaque no mercado global de exportação de vinhos. Nações como Argentina, Chile, África do Sul e Brasil têm se destacado como produtores e exportadores de vinhos competitivos. Esses países têm investido na modernização de suas vinícolas, adoção de técnicas avançadas de vinificação e cultivo de variedades de uvas distintas para criar vinhos de qualidade. Embora enfrentem desafios em termos de infraestrutura e acesso a mercados internacionais, esses países têm se beneficiado de preços mais competitivos, rótulos distintos e o aumento da reputação de suas regiões vitivinícolas. A tendência de exportação de vinhos desses países subdesenvolvidos tem aumentado nos últimos anos, com uma crescente apreciação global por suas ofertas.")
-    st.write("3. Países Emergentes: Os países emergentes estão começando a ganhar espaço no mercado global de exportação de vinhos. Nações como China, Índia, México e alguns países do Leste Europeu têm visto um crescimento significativo na produção e exportação de vinhos. Esses países estão aproveitando seu grande mercado interno e o aumento do consumo de vinhos entre a classe média em rápido crescimento. Eles têm investido na modernização de suas vinícolas, aquisição de conhecimentos técnicos e aprimoramento da qualidade de seus vinhos. Embora ainda estejam em estágios iniciais de desenvolvimento, esses países emergentes estão se tornando cada vez mais reconhecidos no cenário global devido à sua capacidade de produzir vinhos acessíveis e de qualidade. A tendência de exportação de vinhos desses países emergentes tem sido positiva, com um aumento gradual na participação no mercado global.")
-    st.write("Em resumo, a tendência de exportação de vinhos em dólar varia de acordo com o nível socioeconômico dos países. Países desenvolvidos são grandes exportadores de vinhos de alta qualidade, com uma demanda consolidada. Países subdesenvolvidos estão ganhando destaque como produtores e exportadores competitivos de vinhos, aproveitando suas características distintas e preços competitivos. Países emergentes estão começando a ganhar espaço no mercado global, com um crescimento significativo na produção e exportação de vinhos, impulsionado por seu grande mercado interno e aumento do consumo. Essas tendências refletem as oportunidades e desafios enfrentados por cada nível socioeconômico na indústria vitivinícola global.")
-    df_p15 = analise.grafico_line_p15_by_socio(df_exp_vinho_maiores_lucros)
-    # Para renderizar é preciso ser esse df -> df_p15.iloc[:,:-1].T
-    df_p15 = df_p15.iloc[:,:-1]
-    #st.write(df_p15.values.tolist())
-    
-    fig = go.Figure()
-    exec = 0
-    for list in df_p15.values.tolist():
-        fig.add_trace(go.Scatter(x=df_p15.columns, y=list, name=df_p15.index[exec]))
-        exec +=1    
-    
-    fig.update_layout(autosize=False, width=1300, height=500)
     st.plotly_chart(fig)
 
-with st.expander('Quantidade de paises por nivel socioeconomico'):
+    ####### TABELA RESUMIDA GERAL #######
+    st.subheader("Tabela Resumida com Informações de Exportações nos Últimos 15 Anos")
+    st.write("Nos últimos 15 anos, a VitiBrasil alcançou um crescimento notável em suas exportações de vinhos, conquistando mercados em diversos países ao redor do mundo. Durante esse período, alguns países se destacaram como destinos-chave para os vinhos da VitiBrasil.")
+    st.write("Os Estados Unidos emergiram como um dos principais mercados para as exportações da VitiBrasil. Com sua enorme base de consumidores e uma crescente apreciação por vinhos de qualidade, os Estados Unidos têm sido um mercado estratégico para a empresa. Através de parcerias com importadores e distribuidores locais, a VitiBrasil conseguiu aumentar sua presença e expandir sua participação de mercado nesse país.")
+    st.write("Além disso, o mercado europeu desempenhou um papel significativo nas exportações da vinícola. Países como Rússia, Reino Unido, Alemanha e França se destacaram como destinos importantes para os vinhos da empresa. A Europa, conhecida por sua tradição vitivinícola, tem apreciado a qualidade e a diversidade dos vinhos da VitiBrasil, abrindo portas para uma presença cada vez maior da empresa nesse continente.")
+    df_exp_vinho_litros_resumida1 = df_exp_vinho_litros_resumida.reset_index()
+    builder = GridOptionsBuilder.from_dataframe(df_exp_vinho_litros_resumida1)
+    builder.configure_pagination(paginationAutoPageSize=False, paginationPageSize=7)
+    gol                        = builder.build()
+    AgGrid(df_exp_vinho_litros_resumida1, gridOptions=gol)
+    
+    ####### GRÁFICO DE MAPA GERAL #######
+    df_exp_vinho_litros_mapa = df_exp_vinho_litros.copy()
+    df_exp_vinho_litros_mapa = df_exp_vinho_litros_mapa[df_exp_vinho_litros_mapa.columns[0::2][:-1]]
+    st.write("####COLOCAR O TEXTO EXPLICATIVO AQUI####")
+    
+    paises =  pd.read_json('assets/iso_paises.json', lines=True)
+    df_exp_vinho_litros_mapa['ISO ALPHA'] = ''
+    for _, row in paises.iterrows():
+        df_exp_vinho_litros_mapa.loc[df_exp_vinho_litros_mapa.index.str.contains(row['nome']), 'ISO ALPHA'] = row['alpha-3']
+    
+    st.write(df_exp_vinho_litros_mapa.loc[df_exp_vinho_litros_mapa['ISO ALPHA'] == ''])
+    
+    pais  = []
+    ano   = []
+    valor = []
+    iso   = []
+    
+    for pais_name, row  in df_exp_vinho_litros_mapa.iterrows():
+        ano_start = 2007
+        for _ in range(0, 15):
+            pais.append(pais_name)
+            ano.append(ano_start)
+            valor.append(row[f'{ano_start}'])
+            iso.append(row['ISO ALPHA'])
+            ano_start += 1
+
+    df_mapa = pd.DataFrame({"País": pais, "Ano": ano, "Litros(KG)": valor, "ISO Alpha": iso})
+    st.subheader("Litros Exportados nos Últimos 15 anos")
+    fig = px.choropleth(df_mapa, locations='ISO Alpha', color='Litros(KG)', hover_name='País',
+                        projection='eckert4', animation_frame='Ano',color_continuous_scale=[[0, 'rgb(240,240,240)'],
+                      [0, 'rgb(255,255,255)'],
+                      [0.25, 'rgb(161,119,155)'],
+                      [0.5, 'rgb(139,95,133)'],
+                      [0.75, 'rgb(107,62,101)'],
+                      [1, 'rgb(87,43, 82)']],
+                        title='GDP per Capita by Country')
+    
+    
+    fig.update_layout(geo=dict(bgcolor= 'rgba(0,0,0,0)', lakecolor='#4E5D6C',
+                                          landcolor='rgba(51,17,0,0.2)',
+                                          subunitcolor='grey'),
+                                  title = '',font = {"size": 13, "color":"White"},titlefont = {"size": 25, "color":"White"},
+                                  geo_scope='world', margin={"r":0,"t":40,"l":0,"b":0}, plot_bgcolor='#4E5D6C', 
+                                  width=1300, height=600)
+    st.plotly_chart(fig)
+    
+    ####### GRÁFICO DE TOTAL DE IMPORTAÇÃO EM DOLAR #######
+    st.write('Total de importação em dólar por continente')
+    s_p15_regiao = analise.grafico_bar_p15_by_regiao(df_exp_vinho_litros_resumida1)
+    fig = go.Figure(data=[
+        go.Bar(name="Total em US$", x=s_p15_regiao.index, y=s_p15_regiao, marker_color='indianred'),
+    ])
+    
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    st.plotly_chart(fig)
+    
+    
+    ###### GRAFICO DE BARRAS DA QTD DE PAISES POR NIVEL SOCIOECONOMICO ######
+    st.subheader('Quantidade de paises por nivel socioeconomico')
     df_p15 = analise.grafico_bar_p15_qtde_by_socio(df_exp_vinho_maiores_lucros)
 
     fig = go.Figure(data=[
@@ -462,10 +421,8 @@ with st.expander('Quantidade de paises por nivel socioeconomico'):
       tick0 = 1,
       dtick = 1
    ))
-    
     st.plotly_chart(fig)
-    #st.dataframe(df_p15)
+    
+    
 
-with st.expander('Comparação dos paises que mais consomem com a o GPD'):
-    df_p15 = analise.df_gdp(df_exp_vinho_maiores_lucros)
-    st.dataframe(df_p15)
+    
