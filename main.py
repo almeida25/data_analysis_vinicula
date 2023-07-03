@@ -13,6 +13,8 @@ import scripts.analise as analise
 PRIMARY_COLOR = "#572b52"
 
 def main():
+    
+    st.set_page_config(page_title="Vitivinicultura Brasileira")
     st.header("Vitivinicultura Brasileira")
     st.subheader("Introdução")
     st.write("A VitiBrasil é uma vinícola de renome internacional, dedicada à produção de vinhos excepcionais, e tem o prazer de compartilhar seu sucesso nas exportações nos últimos anos. Com base em sua expertise, qualidade incomparável e compromisso com a excelência, a VitiBrasil se estabeleceu como uma das principais marcas de vinhos do Brasil. Neste texto, destacaremos o crescimento impressionante das exportações da VitiBrasil e os motivos pelos quais investir nessa vinícola promissora é uma oportunidade única.")
@@ -116,10 +118,7 @@ def apply_custom_style():
 
 apply_custom_style()
 # Configurations in Streamlit
-add_selectbox = st.sidebar.selectbox(
-    "Selecione o que deseja Visualizar:",
-    ("Exportação", "Importação", "Exportação x Importação", "Comércio", "Produção", "Comércio x Produção")
-)
+
 
 st.title("Relatório de Exportação de Vinhos")
 st.write(' ')
@@ -183,7 +182,7 @@ with st.expander("📊 Informações de Exportação Geral"):
     AgGrid(df_exp_vinho_litros_resumida1, gridOptions=gol)
 
     
-with st.expander(" Maiores Exportadores de Vinho"):
+with st.expander("Os 15 Maiores Exportadores de Vinho"):
     #px.line()
     st.subheader("Linha do Tempo dos Países que mais geraram Lucro ao Brasil nos Últimos 15 Anos")
     st.write("Ao analisar as tendências e padrões dos países que mais geraram lucro para o Brasil nos últimos 15 anos podemos oferecer uma visão estratégica valiosa para potenciais investidores. Durante esse período, o Brasil estabeleceu relações econômicas sólidas com países-chave, como os Estados Unidos, a China, a Alemanha, o Reino Unido e os Países Baixos. Essas nações se destacaram como parceiros comerciais consistentes, contribuindo significativamente para a economia brasileira. Por outro lado, o Paraguai emergiu como um mercado promissor na importação de vinhos brasileiros. Embora seja um país vizinho, sua demanda crescente por vinhos de qualidade tem criado oportunidades atrativas para investidores interessados nesse setor. A proximidade geográfica e a relação comercial entre o Brasil e o Paraguai fornecem uma base sólida para o intercâmbio comercial, com o Paraguai se tornando um destino estratégico para as exportações de vinhos brasileiros.")
@@ -275,33 +274,62 @@ with st.expander("Grafico de Mapa"):
     st.plotly_chart(fig)
     
 
-with st.expander("$ Vendido"):
-    st.write('test')
+with st.expander("Crescimento x Perda nos últimos Anos"):
+    df_exp_vinho_litros1 = df_exp_vinho_litros.sort_values(by='Total em US$', ascending=False)
+    df_exp_vinho_litros1 = df_exp_vinho_litros1
+    df_dolar_resumida  = df_exp_vinho_litros1[df_exp_vinho_litros1.columns[1::2][:-1]]
+    df_vinhos_resumida = df_exp_vinho_litros1[df_exp_vinho_litros1.columns[0::2][:-1]]
     
-    # plt.figure(figsize=(22,8))
-    # plt.plot(df_sample.T.index, df_sample.T.values)
-    # plt.legend(df_sample.T.columns[0:12])
-    # plt.ticklabel_format(style='plain', axis='y')
-    # plt.xticks(rotation=90)
-    # #plt.axhline(y=df_sample.T.values.mean(), color='red', linestyle='--', linewidth=3, label='Avg')
-    # plt.title("Linha do Tempo dos Países que mais exportaram vinho nos Últimos 15 anos")
-    # st.write(plt.show())
+    year = [x for x in range(2007, 2022)]
+    df_dolar_resumida = pd.DataFrame({'Ano': year, 'Total em US$': df_dolar_resumida.sum().values})
+    df_dolar_resumida['Ano'] = df_dolar_resumida['Ano'].astype(str)
+    df_dolar_resumida['Total em US$'] = df_dolar_resumida['Total em US$'].astype(float)
     
-    #graph = alt.Chart(df_exp_vinho).mark_boxplot().encode(y="Total em Litros").properties(width=500)
+    df_vinhos_resumida = pd.DataFrame({'Ano': year, 'Total em Litros': df_vinhos_resumida.sum().values})
+    df_vinhos_resumida['Ano'] = df_vinhos_resumida['Ano'].astype(str)
+    df_vinhos_resumida['Total em Litros'] = df_vinhos_resumida['Total em Litros'].astype(float)
     
-    # df_sample = df_exp_vinho_litros_resumida.loc[(df_exp_vinho_litros_resumida["Total em Litros"] > 100000) & (df_exp_vinho_litros_resumida["Total em Litros"] <= 1000000)].sort_values(by="Total em Litros", ascending=False)
-    # plt.figure(figsize=(22,8))
-    # x_axis = np.arange(len(df_sample.index))
-    # plt.bar(x_axis - 0.2, df_sample[['Total em Litros']].T.sum().values,width=0.4, label = "Litros")
-    # plt.bar(x_axis + 0.2, df_sample[['Total em US$']].T.sum().values,width=0.4,  label="Valor US$")
-    # plt.ticklabel_format(style='plain', axis='y')
-    # plt.xticks(x_axis, df_sample.index)
-    # plt.xticks(rotation=90)
-    # #plt.axhline(y=df_exportacao_geral_litros.sum().median(), color='red', linestyle='--', linewidth=3, label='Mediana')
-    # #plt.axhline(y=df_exportacao_geral_litros.sum().mean(), color='blue', linestyle='--', linewidth=3, label='Média')
-    # plt.title("Linha do Tempo de Exportação de Vinho e Lucro(US$) do Brasil nos Últimos 15 anos")
-    # plt.legend();
+    df_dolar_resumida['percentual'] = ''
+    df_vinhos_resumida['percentual'] = ''
     
+    result = []
+    for _, row in df_dolar_resumida.iterrows():
+        v1 = df_dolar_resumida.loc[df_dolar_resumida['Ano'] == f'{row["Ano"]}']
+        v2 = df_dolar_resumida.loc[df_dolar_resumida['Ano'] == f'{int(row["Ano"]) +1}']
+        result.append(((v2['Total em US$'].values - v1['Total em US$'].values) / v1['Total em US$'].values) * 100)
+    result2 = []
+    for value in result[:-1]:
+        #st.write(round(value[0],2))
+        result2.append(round(value[0],2))
+    result2.insert(0, 0)
+    
+    result = []
+    for _, row in df_vinhos_resumida.iterrows():
+        v1 = df_vinhos_resumida.loc[df_vinhos_resumida['Ano'] == f'{row["Ano"]}']
+        v2 = df_vinhos_resumida.loc[df_vinhos_resumida['Ano'] == f'{int(row["Ano"]) +1}']
+        result.append(((v2['Total em Litros'].values - v1['Total em Litros'].values) / v1['Total em Litros'].values) * 100)
+    result3 = []
+    for value in result[:-1]:
+        #st.write(round(value[0],2))
+        result3.append(round(value[0],2))
+    result3.insert(0, 0)
+    
+    
+    
+    fig = go.Figure()
+    text1 = [str(value)+"%" for value in result2]
+    text2 = [str(value)+"%" for value in result3]
+    fig.add_trace(go.Scatter(x=year, y=result2, name='Total em US$',text=text1, marker_color='indianred', mode='lines+markers+text'))
+    fig.add_trace(go.Scatter(x=year, y=result3, name='Total em Litros',text=text2, marker_color='lightsalmon', mode='lines+markers+text'))
+    fig.update_xaxes(showspikes=True)
+    fig.update_yaxes(showspikes=True)
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    st.plotly_chart(fig)
+
 ## Gabriel Analise
 
 with st.expander('Porcentagem dos 15 paises que mais faturaram para o Brasil em Dólar'):
