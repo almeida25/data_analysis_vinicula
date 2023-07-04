@@ -115,17 +115,45 @@ def df_gdp(df_exportacao:pd.DataFrame):
     df_gpd['pais'] = df_gpd['pais'].str.strip()
     return df_gpd.query('pais in @p15 | pais=="Alemanha" | pais.str.startswith("R")')
     
+def grafico_bar_mercosul(df_exportacao:pd.DataFrame):
+    paises_mercosul = ['Bolívia','Uruguai','Argentina','Chile','Colômbia','Peru','Equador','Guiana','Suriname']
+    return df_exportacao.loc[paises_mercosul]
+
+
+def grafico_bar_continentes(df_exportacao:pd.DataFrame):
+    df_exp_maiores_lucros_regiao = df_exportacao.copy()
+    df_exp_maiores_lucros_regiao.insert(column='id',loc=0,value=range(df_exportacao.shape[0]))
+
+    # Filtrando valores
+    america = [0,2,11,24,26,27,29,30,32,35,36,40,41,44,45,49,50,52,54,63,69,71,74,78,79,82,84,87,88,92,97,103,106,108,110]
+    asia = [4,8,20,25,37,42,48,57,60,62,65,70,76,90,91,93,98,101,102,104,112]
+    europa = [1,3,5,6,7,10,12,13,14,16,17,18,21,22,23,28,33,34,38,56,58,61,64,72,73,75,77,81,83,85,94,95,100]
+    africa = [9,15,31,39,46,51,53,55,58,67,68,80, 86, 89,96,109,111]
+    oceania = [19,43,47,66,107,113]
+
+    # Resetando index
+    df_exp_maiores_lucros_regiao.index = df_exp_maiores_lucros_regiao['id']
+
+    # Alocando continentes
+    df_exp_maiores_lucros_regiao.loc[oceania, 'continente'] = 'Oceania'
+    df_exp_maiores_lucros_regiao.loc[africa, 'continente'] = 'Africa'
+    df_exp_maiores_lucros_regiao.loc[asia, 'continente'] = 'Asia'
+    df_exp_maiores_lucros_regiao.loc[america, 'continente'] = 'America'
+    df_exp_maiores_lucros_regiao.loc[europa, 'continente'] = 'Europa'
+
+    df_exp_maiores_lucros_regiao.index = df_exportacao.index
+
+    return df_exp_maiores_lucros_regiao
 
 
 ## Para ajudar a gerar os outros gráficos 
 # Gráfico do Merco Sul -
 # df para gerar o gráfico
 """
-paises_mercosul = ['Bolívia','Uruguai','Argentina','Chile','Colômbia','Peru','Equador','Guiana','Suriname']
-df_exp_vinho_maiores_lucros.loc[paises_mercosul]
+
 """
 
-# Gráfico do Merco Sul -
+# Gráfico dos continentes-
 # df para gerar o gráfico dos continentes
 
 """
