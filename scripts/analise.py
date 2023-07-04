@@ -115,3 +115,52 @@ def df_gdp(df_exportacao:pd.DataFrame):
     df_gpd['pais'] = df_gpd['pais'].str.strip()
     return df_gpd.query('pais in @p15 | pais=="Alemanha" | pais.str.startswith("R")')
     
+
+
+## Para ajudar a gerar os outros gráficos 
+# Gráfico do Merco Sul -
+# df para gerar o gráfico
+"""
+paises_mercosul = ['Bolívia','Uruguai','Argentina','Chile','Colômbia','Peru','Equador','Guiana','Suriname']
+df_exp_vinho_maiores_lucros.loc[paises_mercosul]
+"""
+
+# Gráfico do Merco Sul -
+# df para gerar o gráfico dos continentes
+
+"""
+# GERA UMA COPIA E ADICIONA UM ID
+df_exp_maiores_lucros_regiao = df_exp_vinho_maiores_lucros.copy()
+df_exp_maiores_lucros_regiao.insert(column='id',loc=0,value=range(df_exp_vinho_maiores_lucros.shape[0]))
+
+
+# MONTA OS FILTROS
+#https://mundoeducacao.uol.com.br/geografia/paises.htm
+america = [0,2,11,24,26,27,29,30,32,35,36,40,41,44,45,49,50,52,54,63,69,71,74,78,79,82,84,87,88,92,97,103,106,108,110]
+america_s = [str(x) for x in america]
+
+asia = [4,8,20,25,37,42,48,57,60,62,65,70,76,90,91,93,98,101,102,104,112]
+asia_s = [str(x) for x in asia]
+
+europa = [1,3,5,6,7,10,12,13,14,16,17,18,21,22,23,28,33,34,38,56,58,61,64,72,73,75,77,81,83,85,94,95,100]
+europa_s = [str(x) for x in europa]
+
+africa = [9,15,31,39,46,51,53,55,58,67,68,80, 86, 89,96,109,111]
+africa_s = [str(x) for x in africa]
+
+oceania = [19,43,47,66,107,113]
+oceania_s = [str(x) for x in oceania]
+
+ALTERA O ID COMO INDEX (DEPOIS VOLTA A OPERAÇÃO COM O OUTRO DF)
+df_exp_maiores_lucros_regiao.index = df_exp_maiores_lucros_regiao['id']
+
+FUNÇÃO PARA SER CHAMADA NO APPLY
+ADICIONAR PARA OS OUTROS CONTINENTES
+ESTÁ DANDO ERRO ->>>>
+def set_regiao(df):
+    if df['id'] in oceania_s:
+        print('True')
+        df['continente'] = 'Oceania'
+
+df_exp_maiores_lucros_regiao.apply(set_regiao, axis=0)
+"""
