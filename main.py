@@ -223,7 +223,13 @@ with tab1:
     df_exp_vinho_litros_resumida1 = df_exp_vinho_litros_resumida.reset_index()
     df_porc_p15 = analise.grafico_pie_p15(df_exp_vinho_litros_resumida1)
     fig = go.Figure()
-    fig.add_pie(labels=df_porc_p15['grupo'], values=df_porc_p15['total_dolares'])
+    fig.add_pie(labels=df_porc_p15['grupo'], values=df_porc_p15['total_dolares'], marker_colors=["indianred", "lightsalmon"])
+    fig.update_layout(legend=dict(
+    yanchor="top",
+    y=0.99,
+    xanchor="left",
+    x=0.01
+    ))
     col1.plotly_chart(fig)
     st.write("É importante ressaltar que a dinâmica do mercado de vinhos é fluida, com mudanças nas preferências dos consumidores, flutuações econômicas e fatores políticos que podem influenciar as exportações. Portanto, a VitiBrasil deve monitorar essas tendências e ajustar suas estratégias de acordo para garantir um crescimento sustentável e a manutenção de relacionamentos sólidos com os principais países compradores.")
 
