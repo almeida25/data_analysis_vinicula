@@ -167,7 +167,7 @@ AgGrid(df_exp_vinho_litros_resumida1, gridOptions=gol)
 
 ############### Visualização Top 15 Países ###############
 st.write('')
-tab1, tab2, tab3 = st.tabs(["📊 Principais Exportadores", "📊 Exportações Gerais", "📊 Mercados"])
+tab1, tab2, tab3, tab4 = st.tabs(["📊 Principais Exportadores", "📊 Exportações Gerais", "📊 Mercados", "📜 Informações do Projeto"])
 
 with tab1:
     st.write('')
@@ -297,7 +297,7 @@ with tab1:
     
     
 with tab2: 
-    
+    st.write('')
     ####### GRÁFICO DE MAPA GERAL #######
     df_exp_vinho_litros_mapa = df_exp_vinho_litros.copy()
     df_exp_vinho_litros_mapa = df_exp_vinho_litros_mapa[df_exp_vinho_litros_mapa.columns[0::2][:-1]]
@@ -350,6 +350,7 @@ with tab2:
     st.plotly_chart(fig)
      
     ####### GRÁFICO DE LINHA % ANUAL GERAL #######
+    st.write('')
     st.subheader("Crescimento x Perda nas exportações de vinho nos últimos anos")
     st.write("O gráfico em questão apresenta o crescimento e a perda das exportações da VitiBrasil, uma das principais empresas produtoras de vinho do Brasil, nos últimos anos. Essa representação visual é valiosa para compreender a evolução das exportações da empresa e analisar seu desempenho no mercado internacional.")
     st.write("Ao observar o gráfico, podemos identificar diferentes períodos de crescimento e perda ao longo dos anos. É importante destacar que os fatores que impulsionam ou afetam as exportações podem variar, incluindo mudanças nas condições econômicas globais, flutuações cambiais, políticas comerciais, demanda dos consumidores e até mesmo eventos específicos que possam impactar o mercado de vinhos. Durante alguns períodos, podemos notar um crescimento acentuado nas exportações da VitiBrasil. Esses momentos de crescimento podem ser resultado de estratégias de expansão em novos mercados, investimentos em marketing e promoção da marca, melhorias na qualidade dos vinhos ou até mesmo o reconhecimento internacional dos produtos da empresa.")
@@ -451,7 +452,7 @@ with tab2:
     st.plotly_chart(fig)
     
 with tab3:
-    
+    st.write('')
     ####### MERCOSUL ################
     st.subheader('Análise dos Paises do Mercosul')
     st.write("*Paises não considerados = Venezuela/Nova Zelândia/México")
@@ -502,11 +503,14 @@ with tab3:
    ))
     st.plotly_chart(fig)
     
-
-st.subheader('Informações do Projeto')
-st.write("Desenvolvido por:")
-st.write('- Brendon Calazans')
-st.write('- Gabriel Rosa')
-st.write('- Marcelo Meirelles')
+with tab4:
+    st.subheader('Sobre')
+    st.write('Projeto desenvolvido por Estudantes da FIAP - Pós Tech em Data Analytics.')
+    st.write("")
+    st.subheader("Referências")
+    st.markdown('<a href="http://vitibrasil.cnpuv.embrapa.br/"><b>Base de Dados Vitti Brasil: </b></a>', unsafe_allow_html=True)
+    st.write("")
+    st.subheader("Responsáveis")
+    st.markdown("<li>Brendon Calazans</li><li>Gabriel Rosa</li><li>Marcelo Meirelles</li>", unsafe_allow_html=True)
 
     
