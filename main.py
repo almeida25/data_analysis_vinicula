@@ -431,7 +431,7 @@ with tab2:
     st.plotly_chart(fig)
     
     ####### GRÁFICO DE TOTAL DE IMPORTAÇÃO EM DOLAR #######
-    st.write('Total de Importação em dólar dos continentes')
+    st.subheader('Total de Importação em dólar dos continentes')
     st.write("O gráfico em questão apresenta o total de importação em dólar dos continentes África, América, Ásia e Europa. Essa visualização permite uma comparação entre as importações dessas regiões e fornece insights sobre as dinâmicas do comércio internacional.")
     st.write("Ao analisar o gráfico, podemos observar que tanto a Europa quanto a América possuem valores quase iguais de importação em dólar. Isso indica que esses dois continentes têm uma participação significativa nas importações globais e são importantes destinos de bens e serviços provenientes de outras regiões. No entanto, apesar de ter valores semelhantes à América, a Europa continua sendo a maior importadora dos quatro continentes. Isso pode ser resultado de uma economia robusta, uma ampla base industrial, uma extensa rede de acordos comerciais e uma demanda diversificada por produtos importados.")
     st.write("Por outro lado, a Ásia e a África são as regiões com os menores valores de importação em dólar. Isso pode refletir diferentes fatores, como economias emergentes, infraestrutura comercial menos desenvolvida, dependência de recursos naturais ou uma base industrial menos diversificada. Essas características podem limitar a capacidade dessas regiões de importar grandes volumes de bens e serviços.")
