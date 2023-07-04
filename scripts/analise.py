@@ -102,7 +102,7 @@ def df_gdp(df_exportacao:pd.DataFrame):
     # Alocando os paises com o nome traduzidos
     lista_paises = ''
 
-    with open('paises_traduzidos.txt', 'r', encoding='UTF-8') as paises:
+    with open('datasets/tech-challenge/content/paises_traduzidos.txt', 'r', encoding='UTF-8') as paises:
         linha = paises.readline()
         lista_paises = linha
 
