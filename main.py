@@ -508,7 +508,7 @@ with tab4:
     st.write('Projeto desenvolvido por Estudantes da FIAP - Pós Tech em Data Analytics.')
     st.write("")
     st.subheader("Referências")
-    st.markdown('<a href="http://vitibrasil.cnpuv.embrapa.br/"><b>Base de Dados Vitti Brasil: </b></a>', unsafe_allow_html=True)
+    st.markdown('<a href="http://vitibrasil.cnpuv.embrapa.br/"><b>Base de Dados Vitti Brasil</b></a>', unsafe_allow_html=True)
     st.write("")
     st.subheader("Responsáveis")
     st.markdown("<li>Brendon Calazans</li><li>Gabriel Rosa</li><li>Marcelo Meirelles</li>", unsafe_allow_html=True)
