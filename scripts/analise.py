@@ -93,7 +93,7 @@ def grafico_bar_p15_qtde_by_socio(df_exportacao:pd.DataFrame):
 
 def df_gdp(df_exportacao:pd.DataFrame):
     # Lendo e filtrando
-    df_gpd = pd.read_csv('../Dados/tech-challenge/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_5607117.csv', header=2)
+    df_gpd = pd.read_csv('datasets/tech-challenge/content/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_5607117.csv', header=2)
     df_gpd_part_one = df_gpd.iloc[:,0:2]
     df_gpd_part_two = df_gpd.iloc[:,51:-2]
 
