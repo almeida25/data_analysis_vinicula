@@ -23,7 +23,7 @@ def main():
     st.write("Neste contexto, investir na VitiBrasil significa apostar em uma marca consolidada, com um histórico comprovado de sucesso nas exportações de vinhos. Além disso, a empresa possui uma estrutura sólida e uma equipe experiente, pronta para impulsionar ainda mais seu crescimento e conquistar novos mercados.")
     st.subheader("Qualidade")
     st.write("A VitiBrasil é conhecida por sua busca incessante pela qualidade em todos os aspectos da produção de vinhos. Desde a seleção meticulosa das uvas até a fermentação controlada e o envelhecimento cuidadoso, cada etapa é realizada com precisão e dedicação. Os resultados são vinhos de caráter único, aromas cativantes e sabores refinados, que atraem os paladares mais exigentes ao redor do mundo.")
-    st.write("A vinícola aproveita as características únicas de seu terroir brasileiro, combinando a influência de climas variados, solos distintos e microclimas específicos para produzir vinhos de caráter singular. As uvas são cultivadas com o máximo cuidado e colhidas no momento ideal de maturação, garantindo que apenas as melhores frutas sejam utilizadas na produção de seus vinhos.")
+    st.write("A vinícola aproveita as características únicas de seu território brasileiro, combinando a influência de climas variados, solos distintos e microclimas específicos para produzir vinhos de caráter singular. As uvas são cultivadas com o máximo cuidado e colhidas no momento ideal de maturação, garantindo que apenas as melhores frutas sejam utilizadas na produção de seus vinhos.")
     st.subheader("Crescimento")
     st.write("Nos últimos anos, a VitiBrasil tem experimentado um crescimento notável e consistente em suas exportações de vinhos. Essa trajetória ascendente é resultado de uma combinação de fatores estratégicos e diferenciais competitivos que impulsionaram a marca a conquistar novos mercados e aumentar sua presença global.")
     st.write("O sucesso da VitiBrasil nas exportações pode ser atribuído a diversos elementos-chave. Em primeiro lugar, a empresa investiu na expansão de sua capacidade produtiva, modernizando suas instalações e adotando tecnologias de ponta para otimizar a produção de vinhos de alta qualidade em larga escala. Esse investimento estratégico permitiu à VitiBrasil atender à crescente demanda internacional e garantir o fornecimento consistente de seus produtos.")
@@ -242,6 +242,25 @@ with tab1:
     st.subheader('Comparação dos paises que mais consomem com a o GPD')
     df_p15 = analise.df_gdp(df_exp_vinho_maiores_lucros)
     st.dataframe(df_p15)
+
+    ####### MERCOSUL ################
+    st.subheader('Analise dos paises do mercosul')
+    st.write("*Paises não considerados = Venezuela/Nova Zelendia/México")
+    st.write('Fonte: https://mundoeducacao.uol.com.br/geografia/paisesmembros-mercosul.htm')
+    df_mercosul = analise.grafico_bar_mercosul(df_exp_vinho_maiores_lucros)
+    #st.dataframe(df_mercosul.iloc[:,-1:])
+    fig = go.Figure(data=[
+        #go.Bar(name="Total em US$", x=df_exp_vinho_litros.columns[0::2][:-1], y=v0, marker_color='indianred'),
+        go.Bar(name="Paises Mercosul", x=df_mercosul.index, y=df_mercosul['Total em US$'], marker_color='lightsalmon')
+    ])
+    
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    st.plotly_chart(fig)
     
     
 with tab2:  
@@ -422,7 +441,37 @@ with tab2:
       dtick = 1
    ))
     st.plotly_chart(fig)
-    
+
+    ##### GRAFICO DOS CONTINENTES
+    st.subheader('Analise da exportação por continentes')
+    df_continentes = analise.grafico_bar_continentes(df_exp_vinho_maiores_lucros)
+    st.write('Todos os paises que exportaram do Brasil nos últimos 15 anos')
+    #st.dataframe(df_continentes)
+    series_continente = df_continentes.groupby('continente').sum()['Total em US$']
+
+    opcoes = ['Todos']
+    opcoes.extend(series_continente.index)
+    select_box = st.selectbox('Selecione o continente', options=opcoes)
+    if select_box=='Todos':
+        fig = go.Figure(data=[
+            #go.Bar(name="Total em US$", x=df_exp_vinho_litros.columns[0::2][:-1], y=v0, marker_color='indianred'),
+            go.Bar(name="Total por continente", x=series_continente.index, y=series_continente, marker_color='lightsalmon')
+        ])
+    else:
+        df_continente_selecionado = df_continentes.query('continente == @select_box')['Total em US$']
+        fig = go.Figure(data=[
+            #go.Bar(name="Total em US$", x=df_exp_vinho_litros.columns[0::2][:-1], y=v0, marker_color='indianred'),
+            go.Bar(name="Total por continente", x=df_continente_selecionado.index, y=df_continente_selecionado, marker_color='lightsalmon')
+        ])
+
+    #fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+    fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+    fig.update_layout(autosize=False, width=1300, height=500, xaxis_tickangle=0, xaxis = dict(
+      tickmode = 'linear',
+      tick0 = 1,
+      dtick = 1
+   ))
+    st.plotly_chart(fig)
     
 
     
