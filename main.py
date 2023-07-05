@@ -277,6 +277,9 @@ with tab1:
       dtick = 1
    ))
     col1.subheader("Quantidade de Paises por Nível Socioeconômico")
+    col1.write("O gráfico em questão apresenta a distribuição de países por nível socioeconômico e destaca aqueles que importam vinhos do Brasil. Observando os dados, podemos identificar que dos 11 países desenvolvidos, 2 subdesenvolvidos e 2 emergentes, um certo número dessas nações é um destino para os vinhos produzidos no Brasil.")
+    col1.write("No contexto dos países desenvolvidos, essas nações, caracterizadas por um alto grau de industrialização e desenvolvimento econômico, demonstram interesse pelos vinhos brasileiros. Isso pode ser resultado da qualidade e diversidade da produção vinícola brasileira, que conquistou a atenção e a preferência de consumidores exigentes. A exportação de vinhos para esses países desenvolvidos pode ser considerada um indicador de reconhecimento e aceitação internacional do produto brasileiro.")
+    col1.write("Já nos países subdesenvolvidos e emergentes que importam vinhos do Brasil, podemos identificar um potencial de crescimento e oportunidades futuras. Esses países, embora enfrentem desafios socioeconômicos, demonstram interesse no consumo de vinhos brasileiros. Isso pode ser atribuído a uma combinação de fatores, como a busca por diversificação de origens de vinho, interesse por novidades e oportunidades de negócios entre países em desenvolvimento.")
     col1.plotly_chart(fig)
     
     ####### GRÁFICO DE BARRAS DAS QUESTÕES SOCIOECONOMICAS #######
