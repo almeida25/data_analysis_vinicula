@@ -454,8 +454,14 @@ with tab2:
 with tab3:
     st.write('')
     ####### MERCOSUL ################
-    st.subheader('Análise dos Paises do Mercosul')
-    st.write("*Paises não considerados = Venezuela/Nova Zelândia/México")
+    st.subheader('Análise da importação de vinhos Brasileiros pelos Países do Mercosul')
+    st.write("O Mercosul, também conhecido como Mercado Comum do Sul, é uma organização regional que busca promover a integração econômica e política entre países da América do Sul. Atualmente, os membros plenos do Mercosul são Argentina, Brasil, Paraguai e Uruguai. A Venezuela, embora tenha se tornado membro pleno em 2012, está atualmente suspensa devido a preocupações com o cumprimento de suas obrigações internas. A Nova Zelândia e o México não fazem parte do Mercosul, portanto, não têm direito a voto nas decisões do bloco, por esse motivo esses países não constam no gráfico para análise.")
+    st.write("Observando o gráfico, podemos notar que a Bolívia se destaca como o maior importador de vinhos brasileiros entre os países listados. Esse fato pode ser atribuído a diferentes motivos, como preferências de consumo, acordos comerciais e demanda crescente por vinhos brasileiros nesse mercado específico.")
+    st.write("Além disso, é interessante notar que a Argentina, país vizinho do Brasil e conhecido por sua tradição vitivinícola, também figura como um dos principais importadores de vinhos brasileiros. Isso pode ser atribuído à proximidade geográfica e às relações comerciais estabelecidas entre os dois países.")
+    st.write("O Uruguai, reconhecido por sua produção de vinhos de qualidade, também importa vinhos do Brasil, ocupando uma posição relevante no gráfico. Isso indica a busca por diversidade e complementaridade na oferta de vinhos, mesmo entre países que são concorrentes diretos na indústria vinícola.")
+    st.write("Outros países como Chile, Colômbia, Peru, Suriname, Guiana e Equador também importam vinhos brasileiros, embora em volumes menores em comparação com os principais importadores. Esses mercados podem representar oportunidades de crescimento para a indústria vinícola brasileira, com potencial para expandir as exportações e conquistar consumidores nessas nações.")
+    st.write("Em resumo, o gráfico da importação de vinhos do Brasil pelos países Bolívia, Uruguai, Argentina, Chile, Colômbia, Peru, Suriname, Guiana e Equador destaca a importância da Bolívia como o maior importador de vinhos brasileiros nesse conjunto de países. Mostra também a diversidade de mercados e a busca por diferentes características e sabores de vinhos por parte dos importadores. Esses dados podem ser úteis para a indústria vitivinícola brasileira ao identificar oportunidades de crescimento e estabelecer estratégias de expansão nessas nações.")
+    
     st.write('Adicionar no fim do Projeto -  Fonte: https://mundoeducacao.uol.com.br/geografia/paisesmembros-mercosul.htm')
     df_mercosul = analise.grafico_bar_mercosul(df_exp_vinho_maiores_lucros)
     #st.dataframe(df_mercosul.iloc[:,-1:])
