@@ -451,9 +451,10 @@ with tab2:
     st.write("Ao analisar o gráfico, podemos observar que tanto a Europa quanto a América possuem valores quase iguais de importação em dólar. Isso indica que esses dois continentes têm uma participação significativa nas importações globais e são importantes destinos de bens e serviços provenientes de outras regiões. No entanto, apesar de ter valores semelhantes à América, a Europa continua sendo a maior importadora dos quatro continentes. Isso pode ser resultado de uma economia robusta, uma ampla base industrial, uma extensa rede de acordos comerciais e uma demanda diversificada por produtos importados.")
     st.write("Por outro lado, a Ásia e a África são as regiões com os menores valores de importação em dólar. Isso pode refletir diferentes fatores, como economias emergentes, infraestrutura comercial menos desenvolvida, dependência de recursos naturais ou uma base industrial menos diversificada. Essas características podem limitar a capacidade dessas regiões de importar grandes volumes de bens e serviços.")
     st.write("Em resumo, o gráfico do total de importação em dólar dos continentes África, América, Ásia e Europa revela a importância da Europa e da América como principais importadoras, com valores quase iguais. Enquanto isso, a Ásia e a África mostram valores menores, com a África ocupando a posição de menor importador. Essa análise pode fornecer insights sobre as dinâmicas do comércio internacional e auxiliar na elaboração de estratégias comerciais eficazes para cada continente.")
-    s_p15_regiao = analise.grafico_bar_p15_by_regiao(df_exp_vinho_litros_resumida1)
+    df_continentes = analise.grafico_bar_continentes(df_exp_vinho_litros_resumida1)
+    df_continentes = df_continentes.groupby('continente').sum()['Total em US$']
     fig = go.Figure(data=[
-        go.Bar(name="Total em US$", x=s_p15_regiao.index, y=s_p15_regiao, marker_color='indianred'),
+        go.Bar(name="Total em US$", x=df_continentes.index, y=df_continentes, marker_color='indianred'),
     ])
     
     fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
