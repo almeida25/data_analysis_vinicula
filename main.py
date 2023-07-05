@@ -433,6 +433,7 @@ with tab2:
     df_exp_vinho_maiores_lucros = df_exp_vinho_maiores_lucros[cols]
 
     df_continentes = analise.grafico_bar_continentes(df_exp_vinho_maiores_lucros)
+    df_continentes = df_continentes.groupby('continente').sum().iloc[:,1:-1]
     fig = go.Figure()
     exec = 0
     for list in df_continentes.values.tolist():
