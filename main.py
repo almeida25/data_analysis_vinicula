@@ -479,9 +479,16 @@ with tab3:
     st.plotly_chart(fig)
 
     ##### GRAFICO DOS CONTINENTES
-    st.subheader('Analise da exportação por continentes')
+    st.subheader('Análise da exportação de Vinho pelos Continentes nos últimos Anos')
     df_continentes = analise.grafico_bar_continentes(df_exp_vinho_maiores_lucros)
-    st.write('Todos os paises que exportaram do Brasil nos últimos 15 anos')
+    st.write('A análise da exportação de vinhos pelos continentes da África, América, Ásia, Europa e Oceania, revela algumas tendências interessantes.')
+    st.write("1. América: A exportação de vinhos da VitiBrasil para países americanos, como Estados Unidos, Canadá, Paraguai e Bolívia, é uma parte significativa do mercado. A proximidade geográfica e a presença de consumidores sofisticados e conhecedores de vinho na região podem impulsionar o comércio bilateral.")
+    st.write("2. Europa: A Europa é um mercado tradicionalmente importante para a indústria vinícola e a exportação de vinhos da VitiBrasil para países europeus, como Rússia, Alemanha e Reino Unido, pode representar uma oportunidade de alcance de consumidores que valorizam a diversidade e a qualidade dos vinhos.")
+    st.write("3. Ásia: A exportação de vinhos da VitiBrasil para países asiáticos, como China e Japão, está em crescimento. O aumento da renda, a influência ocidental e o interesse crescente pela cultura do vinho nesses países podem impulsionar a demanda por vinhos brasileiros.")
+    st.write("4. África: Embora a exportação de vinhos da VitiBrasil para a África possa ser menor em comparação com outros continentes, o aumento da classe média e o desenvolvimento do turismo em alguns países africanos podem gerar demanda por vinhos brasileiros. Países como África do Sul, Nigéria e Angola têm potencial de mercado a ser explorado.")
+    st.write("5. Oceania: A Oceania é o continente de menor destaque na exportação de vinhos da VitiBrasil. No entanto, países como Austrália e Nova Zelândia possuem uma forte tradição vinícola e, embora sejam concorrentes, podem oferecer oportunidades para vinhos brasileiros exclusivos e distintos.")
+    st.write("É importante ressaltar que essas são apenas tendências gerais e que a demanda por vinhos pode variar de acordo com cada país dentro de cada continente. Estratégias personalizadas de marketing, distribuição e desenvolvimento de relacionamentos comerciais são essenciais para aproveitar ao máximo as oportunidades em cada mercado.")
+    st.write(" ")
     #st.dataframe(df_continentes)
     series_continente = df_continentes.groupby('continente').sum()['Total em US$']
 
