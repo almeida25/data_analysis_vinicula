@@ -277,11 +277,11 @@ with tab1:
       dtick = 1
    ))
     col1.subheader("Quantidade de Paises por Nível Socioeconômico")
+    col1.plotly_chart(fig)
     col1.write("O gráfico em questão apresenta a distribuição de países por nível socioeconômico e destaca aqueles que importam vinhos do Brasil. Observando os dados, podemos identificar que dos 11 países desenvolvidos, 2 subdesenvolvidos e 2 emergentes, um certo número dessas nações é um destino para os vinhos produzidos no Brasil.")
     col1.write("No contexto dos países desenvolvidos, essas nações, caracterizadas por um alto grau de industrialização e desenvolvimento econômico, demonstram interesse pelos vinhos brasileiros. Isso pode ser resultado da qualidade e diversidade da produção vinícola brasileira, que conquistou a atenção e a preferência de consumidores exigentes. A exportação de vinhos para esses países desenvolvidos pode ser considerada um indicador de reconhecimento e aceitação internacional do produto brasileiro.")
     col1.write("Já nos países subdesenvolvidos e emergentes que importam vinhos do Brasil, podemos identificar um potencial de crescimento e oportunidades futuras. Esses países, embora enfrentem desafios socioeconômicos, demonstram interesse no consumo de vinhos brasileiros. Isso pode ser atribuído a uma combinação de fatores, como a busca por diversificação de origens de vinho, interesse por novidades e oportunidades de negócios entre países em desenvolvimento.")
-    col1.plotly_chart(fig)
-    
+
     ####### GRÁFICO DE BARRAS DAS QUESTÕES SOCIOECONOMICAS #######
     df_p15 = analise.grafico_bar_p15_by_socio(df_exp_vinho_maiores_lucros)
     fig = go.Figure(data=[
@@ -296,12 +296,12 @@ with tab1:
       dtick = 1
    ))
     col2.subheader("Valores em Dólar por Nível Socioeconômico")
+    col2.plotly_chart(fig)
     col2.write("O gráfico em questão apresenta os valores em dólar das importações de vinhos do Brasil por país, categorizados por nível socioeconômico. Os dados revelam algumas informações interessantes sobre o volume de importações entre países classificados como Subdesenvolvidos, Desenvolvidos e Emergentes.")
     col2.write("Surpreendentemente, os países subdesenvolvidos são os que possuem o maior valor total de importação de vinhos brasileiros, aproximadamente 34 milhões de dólares. Isso pode indicar um crescimento notável nesses mercados, onde o consumo de vinhos brasileiros tem ganhado popularidade e reconhecimento. Esses países, mesmo enfrentando desafios socioeconômicos, demonstram uma demanda crescente por produtos vinícolas de qualidade, e o Brasil tem sido capaz de atender a essa demanda.")
     col2.write("Logo em seguida, temos os países desenvolvidos com um valor total de importação de aproximadamente 33 milhões de dólares. Esses países, caracterizados por alto desenvolvimento econômico e padrões de consumo sofisticados, também são um importante destino para os vinhos brasileiros. Essa demanda pode ser atribuída à reputação crescente do Brasil como produtor de vinhos de qualidade, que são valorizados por consumidores exigentes em busca de novas opções no mercado.")
     col2.write("Por fim, temos os países emergentes, que importam vinhos brasileiros com um valor total de aproximadamente 30 milhões de dólares. Esses países, em processo de crescimento econômico e desenvolvimento, demonstram um interesse crescente nos vinhos brasileiros. O Brasil tem se posicionado como uma opção atraente nesses mercados em expansão, oferecendo uma ampla variedade de vinhos que se adequam aos gostos e preferências dos consumidores emergentes.")
-    col2.plotly_chart(fig)
-    
+  
     
 with tab2: 
     st.write('')
