@@ -479,7 +479,7 @@ with tab3:
     st.plotly_chart(fig)
 
     ##### GRAFICO DOS CONTINENTES
-    st.subheader('Análise da exportação de Vinho pelos Continentes nos últimos Anos')
+    st.subheader('Análise da exportação de Vinhos pelos Continentes nos últimos Anos')
     df_continentes = analise.grafico_bar_continentes(df_exp_vinho_maiores_lucros)
     st.write('A análise da exportação de vinhos pelos continentes da África, América, Ásia, Europa e Oceania, revela algumas tendências interessantes.')
     st.write("1. América: A exportação de vinhos da VitiBrasil para países americanos, como Estados Unidos, Canadá, Paraguai e Bolívia, é uma parte significativa do mercado. A proximidade geográfica e a presença de consumidores sofisticados e conhecedores de vinho na região podem impulsionar o comércio bilateral.")
