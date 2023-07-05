@@ -478,7 +478,6 @@ with tab3:
     st.write("Outros países como Chile, Colômbia, Peru, Suriname, Guiana e Equador também importam vinhos brasileiros, embora em volumes menores em comparação com os principais importadores. Esses mercados podem representar oportunidades de crescimento para a indústria vinícola brasileira, com potencial para expandir as exportações e conquistar consumidores nessas nações.")
     st.write("Em resumo, o gráfico da importação de vinhos do Brasil pelos países Bolívia, Uruguai, Argentina, Chile, Colômbia, Peru, Suriname, Guiana e Equador destaca a importância da Bolívia como o maior importador de vinhos brasileiros nesse conjunto de países. Mostra também a diversidade de mercados e a busca por diferentes características e sabores de vinhos por parte dos importadores. Esses dados podem ser úteis para a indústria vitivinícola brasileira ao identificar oportunidades de crescimento e estabelecer estratégias de expansão nessas nações.")
     
-    st.write('Adicionar no fim do Projeto -  Fonte: https://mundoeducacao.uol.com.br/geografia/paisesmembros-mercosul.htm')
     df_mercosul = analise.grafico_bar_mercosul(df_exp_vinho_maiores_lucros)
     #st.dataframe(df_mercosul.iloc[:,-1:])
     fig = go.Figure(data=[
@@ -538,6 +537,8 @@ with tab4:
     st.write("")
     st.subheader("Referências")
     st.markdown('<a href="http://vitibrasil.cnpuv.embrapa.br/"><b>Base de Dados Vitti Brasil</b></a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://mundoeducacao.uol.com.br/geografia/paisesmembros-mercosul.htm"<b>Países Mercosul</b> </a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://mundoeducacao.uol.com.br/geografia/paises.htm"<b>Países e continentes</b> </a>', unsafe_allow_html=True)
     st.write("")
     st.subheader("Responsáveis")
     st.markdown("<li>Brendon Calazans</li><li>Gabriel Rosa</li><li>Marcelo Meirelles</li>", unsafe_allow_html=True)
