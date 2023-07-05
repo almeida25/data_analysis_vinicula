@@ -432,11 +432,11 @@ with tab2:
     cols = df_exp_vinho_maiores_lucros.columns[1::2][-16:]
     df_exp_vinho_maiores_lucros = df_exp_vinho_maiores_lucros[cols]
 
-    df_p15 = analise.grafico_line_p15_by_regiao(df_exp_vinho_maiores_lucros)
+    df_continentes = analise.grafico_bar_continentes(df_exp_vinho_maiores_lucros)
     fig = go.Figure()
     exec = 0
-    for list in df_p15.values.tolist():
-        fig.add_trace(go.Scatter(x=df_p15.columns, y=list, name=df_p15.index[exec]))
+    for list in df_continentes.values.tolist():
+        fig.add_trace(go.Scatter(x=df_continentes.columns, y=list, name=df_continentes.index[exec]))
         fig.update_xaxes(showspikes=True)
         fig.update_yaxes(showspikes=True)
         exec +=1    
