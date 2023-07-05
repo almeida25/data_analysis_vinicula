@@ -12,9 +12,9 @@ def grafico_pie_p15(df_exportacao:pd.DataFrame):
     'total_dolares': []
     }
 
-    df_p15_outros_paises['grupo'].append('P15')
+    df_p15_outros_paises['grupo'].append('Maiores Exportadores')
     df_p15_outros_paises['total_dolares'].append(df_p15['Total em US$'].sum())
-    df_p15_outros_paises['grupo'].append('Outros')
+    df_p15_outros_paises['grupo'].append('Demais Países')
     df_p15_outros_paises['total_dolares'].append(df_outros['Total em US$'].sum())
 
     df_p15_outros_paises = pd.DataFrame(df_p15_outros_paises)
